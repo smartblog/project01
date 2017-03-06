@@ -1,11 +1,11 @@
 puts "Первая сторона треугольника"
-a = gets.to_i
+a = gets.to_f
 
 puts "Вторая сторона треугольника"
-b = gets.to_i
+b = gets.to_f
 
 puts "Третья сторона треугольника"
-c = gets.to_i
+c = gets.to_f
 
 array = [a, b, c]
 array.sort!
@@ -22,5 +22,3 @@ elsif array[0] == array[1]
   puts "Треугольник равнобедренный"
 else
 end
-
-
