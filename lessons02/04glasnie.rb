@@ -1,12 +1,6 @@
 glasnie = [ "a", "e", "i", "o", "u", "y" ]
 my_hash = {}
 
-number = 1
-('a' .. 'z').each do |letter|
-  if glasnie.include?(letter)
-    my_hash[letter] = number
-  end
-  number += 1
-end
+('a' .. 'z').each_with_index{|key, value| my_hash[key] = value + 1 if glasnie.include?(key)}
 
 puts my_hash

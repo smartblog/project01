@@ -1,12 +1,10 @@
 fibo_array = [0, 1]
 
-loop do
+number = fibo_array[-1] + fibo_array[-2]
+
+while number < 100 do
+  fibo_array << number
   number = fibo_array[-1] + fibo_array[-2]
-  if number < 100
-    fibo_array << number
-  else
-    break
-  end
 end
 
 puts fibo_array

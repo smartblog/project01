@@ -1,5 +1,4 @@
-@pokipki = {}
-@totalsum = 0
+pokupki = {}
 
 loop do
   puts "Enter name of product, or 'stop' if you want exit"
@@ -14,16 +13,18 @@ loop do
 
   total = price * amount
 
-  if @pokupki.nil?
-    @pokupki = {product=>{:price=>price, :amount=>amount, :total=>total}}
+  if pokupki.nil?
+    pokupki = {product=>{:price=>price, :amount=>amount, :total=>total}}
   else
-    @pokupki[product] = {:price=>price, :amount=>amount, :total=>total}
+    pokupki[product] = {:price=>price, :amount=>amount, :total=>total}
   end
 
 end
 
-@pokupki.each do |product, desc|
+totalsum = 0
+
+pokupki.each do |product, desc|
   puts "Product name: #{product}, Price: #{desc[:price]}, Amount: #{desc[:amount]}, Total: #{desc[:total]}"
-  @totalsum += desc[:total]
+  totalsum += desc[:total]
 end
-puts "Total Sum: #{@totalsum}"
+puts "Total Sum: #{totalsum}"
