@@ -1,7 +1,6 @@
 class Station
   def initialize(name)
     @name = name
-    @files = {}
   end
 end
 
