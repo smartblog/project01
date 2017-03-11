@@ -21,6 +21,7 @@ class Station
 
   def departure(train)
     @trains.delete(train.number)
+    puts "Departure train #{train.number} from Station: #{@name}"
   end
 end
 
@@ -83,8 +84,8 @@ class Train
     @carriages += 1 if @speed == 0
   end
 
-  def addroute(route)
-    @route = route
+  def addroute(trainroute)
+    @route = trainroute.route
     @@count = 1
     @current_st = @route[0]
   end
@@ -136,7 +137,7 @@ route01.view
 route01.addtransit(station03)
 route01.view
 
-train01.addroute(route01.route)
+train01.addroute(route01)
 train01.transfer
 train01.current_station
 train01.transfer
