@@ -21,7 +21,7 @@ class Station
 
   def departure(number)
     @trains.each do |train|
-      if train.number == number
+      if train == number
         @trains.delete(train)
         puts "Departure train #{train.number} from Station: #{@name}"
       end

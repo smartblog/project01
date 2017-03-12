@@ -36,3 +36,9 @@ train01.current_station
 train01.next_station
 train01.transfer
 train01.current_station
+station01.list
+station04.list
+train01.transfer
+train01.current_station
+station02.list
+train01.transfer

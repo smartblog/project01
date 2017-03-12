@@ -34,10 +34,15 @@ class Train
   end
 
   def transfer
-    @@index += 1
-    puts "Train #{@train} follow Route: #{@current_route.route} \n"
-    @current_st = @current_route.route[@@index]
-    @current_route.route[@@index].departure
+    if @@index < @current_route.route.count - 1
+      @@index += 1
+      puts "Train #{@train} follow Route: #{@current_route.route} \n"
+      @current_st = @current_route.route[@@index]
+      @current_route.route[@@index-1].departure(self)
+      @current_route.route[@@index].arrive(self)
+    else
+      puts "Train in end of route, please add new route to train"
+    end
   end
 
   def current_station
