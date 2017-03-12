@@ -1,5 +1,5 @@
 class Train
-  attr_accessor :number, :type, :carriages, :route
+  attr_accessor :number, :type, :carriages, :route, :current_station
   def initialize(number, type, carriages)
     @speed = 0
     @number = number
@@ -29,7 +29,7 @@ class Train
 
   def addroute(train_route)
     @index = 0
-    @current_st = train_route.route[@index]
+    @current_station = train_route.route[@index]
     @current_route = train_route
   end
 
@@ -37,20 +37,23 @@ class Train
     if @index < @current_route.route.count - 1
       @index += 1
       puts "Train #{@train} follow Route: #{@current_route.route} \n"
-      @current_st = @current_route.route[@index]
+      @current_station = @current_route.route[@index]
       @current_route.route[@index-1].departure(self)
       @current_route.route[@index].arrive(self)
     else
-      @current_route.route.reverse!
-      @index = 1
-      @current_st = @current_route.route[@index]
-      @current_route.route[@index-1].departure(self)
-      @current_route.route[@index].arrive(self)
+      puts "Transfer impossible bacause current station is end of route"
     end
   end
 
-  def current_station
-    puts "Current station #{@current_route.route[@index].name}"
+  def reverse_transfer
+    if @index == 0
+      puts "Transfer impossible bacause current station is end of reverse transfer"
+    else
+      @index -= 1
+      @current_station = @current_route.route[@index]
+      @current_route.route[@index+1].departure(self)
+      @current_route.route[@index].arrive(self)
+    end
   end
 
   def next_station

@@ -20,11 +20,6 @@ class Station
   end
 
   def departure(train)
-    @trains.each do |object|
-      if object == train
-        @trains.delete(object)
-        puts "Departure train #{object.number} from Station: #{@name}"
-      end
-    end
+    puts "Departure train #{train.number} from Station: #{@name}" if @trains.delete(train) == train
   end
 end

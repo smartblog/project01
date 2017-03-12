@@ -41,6 +41,9 @@ station04.list
 train01.transfer
 train01.current_station
 station02.list
-train01.transfer
-train01.current_station
+train01.reverse_transfer
+puts train01.current_station.name
 station04.list
+train01.next_station
+train01.transfer
+train01.transfer
