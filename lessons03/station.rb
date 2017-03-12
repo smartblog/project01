@@ -19,11 +19,11 @@ class Station
     @filter_trains = @trains.select {|object| object.type == traintype}
   end
 
-  def departure(number)
-    @trains.each do |train|
-      if train == number
-        @trains.delete(train)
-        puts "Departure train #{train.number} from Station: #{@name}"
+  def departure(train)
+    @trains.each do |object|
+      if object == train
+        @trains.delete(object)
+        puts "Departure train #{object.number} from Station: #{@name}"
       end
     end
   end

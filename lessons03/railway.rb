@@ -42,3 +42,5 @@ train01.transfer
 train01.current_station
 station02.list
 train01.transfer
+train01.current_station
+station04.list

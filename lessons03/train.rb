@@ -28,32 +28,36 @@ class Train
   end
 
   def addroute(train_route)
-    @@index = 0
-    @current_st = train_route.route[@@index]
+    @index = 0
+    @current_st = train_route.route[@index]
     @current_route = train_route
   end
 
   def transfer
-    if @@index < @current_route.route.count - 1
-      @@index += 1
+    if @index < @current_route.route.count - 1
+      @index += 1
       puts "Train #{@train} follow Route: #{@current_route.route} \n"
-      @current_st = @current_route.route[@@index]
-      @current_route.route[@@index-1].departure(self)
-      @current_route.route[@@index].arrive(self)
+      @current_st = @current_route.route[@index]
+      @current_route.route[@index-1].departure(self)
+      @current_route.route[@index].arrive(self)
     else
-      puts "Train in end of route, please add new route to train"
+      @current_route.route.reverse!
+      @index = 1
+      @current_st = @current_route.route[@index]
+      @current_route.route[@index-1].departure(self)
+      @current_route.route[@index].arrive(self)
     end
   end
 
   def current_station
-    puts "Current station #{@current_route.route[@@index].name}"
+    puts "Current station #{@current_route.route[@index].name}"
   end
 
   def next_station
-    puts "Next station #{@current_route.route[@@index + 1].name}"
+    puts "Next station #{@current_route.route[@index + 1].name}"
   end
 
   def previos_station
-    puts "Previos station #{@current_route.route[@@index - 1].name}"
+    puts "Previos station #{@current_route.route[@index - 1].name}"
   end
 end
