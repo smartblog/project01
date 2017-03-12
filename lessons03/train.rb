@@ -1,24 +1,17 @@
 class Train
-  attr_accessor :number, :type, :carriages, :route, :prev_st, :current_st, :next_st
+  attr_accessor :number, :type, :carriages, :route
   def initialize(number, type, carriages)
-    @train = {}
-    @route = {}
     @speed = 0
     @number = number
     @type = type
     @carriages = carriages
-    @train[number] = {type: type, carriages: carriages}
   end
 
-  def view
-    puts @train
-  end
-
-  def current_s
+  def speed
     puts @speed
   end
 
-  def current_c
+  def carriages
     puts @carriages
   end
 
@@ -30,42 +23,32 @@ class Train
     @speed = 0
   end
 
-  def add_c
+  def add_carriages
     @carriages += 1 if @speed == 0
   end
 
-  def addroute(trainroute)
-    @station_from = trainroute.r1
-    @route = trainroute.route
-    @@count = 1
-    @current_st = @route[0]
+  def addroute(train_route)
+    @@index = 0
+    @current_st = train_route.route[@@index]
+    @current_route = train_route
   end
 
   def transfer
-    puts "Train follow Route: #{@route}"
-    @prev_st = @route[@@count-1]
-    @current_st = @route[@@count]
-    @next_st = @route[@@count+1]
-    sleep 1
-    @station_from.departure(@number)
-    puts "Transfer 0#{@@count}: Prev_st: #{@prev_st}, Curr_st: #{@current_st}, Next_st: #{@next_st}"
-    @@count += 1
-    if @@count == @route.count
-      @@count = 1
-      @route = []
-      @next_st = nil
-    end
+    @@index += 1
+    puts "Train #{@train} follow Route: #{@current_route.route} \n"
+    @current_st = @current_route.route[@@index]
+    @current_route.route[@@index].departure
   end
 
   def current_station
-    puts "Current station #{@current_st}"
+    puts "Current station #{@current_route.route[@@index].name}"
   end
 
   def next_station
-    puts "Next station #{@next_st}"
+    puts "Next station #{@current_route.route[@@index + 1].name}"
   end
 
   def previos_station
-    puts "Previos station #{@prev_st}"
+    puts "Previos station #{@current_route.route[@@index - 1].name}"
   end
 end

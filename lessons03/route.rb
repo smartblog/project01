@@ -1,19 +1,15 @@
 class Route
-  attr_accessor :route, :r1, :r2
+  attr_accessor :route
   def initialize(from, to)
-    @r1 = from
-    @r2 = to
-    @route = []
-    @route << from.name
-    @route << to.name
+    @route = [from, to]
   end
 
-  def addtransit(transit)
-    @route.insert(-2, transit.name)
+  def add_station(station)
+    @route.insert(-2, station)
   end
 
-  def deltransit(transit)
-    @transit.delete(transit.name)
+  def delete_station(station)
+    @transit.delete(station)
   end
 
   def view

@@ -15,13 +15,16 @@ station01.arrive(train02)
 station02.arrive(train03)
 station01.list
 station02.list
+station01.filter("cargo")
+puts "-------------------------------"
+
 
 puts "Test ROUTE"
 
 route01 = Route.new(station01, station02)
 
-route01.addtransit(station03)
-route01.addtransit(station04)
+route01.add_station(station03)
+route01.add_station(station04)
 route01.view
 
 train01.addroute(route01)
@@ -30,5 +33,6 @@ puts "-------------------------------"
 station01.list
 
 train01.current_station
+train01.next_station
 train01.transfer
 train01.current_station
