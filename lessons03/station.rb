@@ -20,6 +20,6 @@ class Station
   end
 
   def departure(train)
-    puts "Departure train #{train.number} from Station: #{@name}" if @trains.delete(train) == train
+    puts "Departure train #{train.number} from Station: #{@name}" if @trains.delete(train)
   end
 end

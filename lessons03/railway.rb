@@ -15,7 +15,6 @@ station01.arrive(train02)
 station02.arrive(train03)
 station01.list
 station02.list
-station01.filter("cargo")
 puts "-------------------------------"
 
 
@@ -32,18 +31,5 @@ train01.transfer
 puts "-------------------------------"
 station01.list
 
-train01.current_station
-train01.next_station
-train01.transfer
-train01.current_station
-station01.list
-station04.list
-train01.transfer
-train01.current_station
-station02.list
-train01.reverse_transfer
 puts train01.current_station.name
-station04.list
-train01.next_station
-train01.transfer
-train01.transfer
+puts train01.next_station.name
