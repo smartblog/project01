@@ -11,8 +11,4 @@ class Route
   def delete_station(station)
     @transit.delete(station)
   end
-
-  def view
-    puts @route.join(' >>> ')
-  end
 end

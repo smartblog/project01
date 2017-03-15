@@ -1,5 +1,5 @@
 class Train
-  attr_reader :number, :type, :carriages, :route
+  attr_reader :number, :type, :carriages
   def initialize(number)
     @speed = 0
     @number = number
@@ -29,6 +29,7 @@ class Train
   def addroute(train_route)
     @index = 0
     @current_route = train_route
+    current_station
   end
 
   def transfer
@@ -65,7 +66,7 @@ class Train
   end
 
   protected
-  attr_writer :number, :type, :carriages, :route
+  attr_writer :number, :type, :carriages
 
 end
 
