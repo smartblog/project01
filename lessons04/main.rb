@@ -1,7 +1,3 @@
-require_relative 'station'
-require_relative 'route'
-require_relative 'train'
-require_relative 'carriage'
 require_relative 'application'
 
 menu = Application.new
