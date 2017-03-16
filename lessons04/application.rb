@@ -53,6 +53,54 @@ class Application
     @trains[train_index].addroute(@routes[route_index])
   end
 
+  def add_carriage
+    puts "Add Carriage to Train"
+    list_trains
+    puts "Please choice a Train"
+    train_number = gets.chomp.to_i
+    puts "Please choice type of Carriage\n 1 - Passenger\n 2 - Cargo"
+    number = gets.chomp.to_i
+    case number
+      when 1
+      @trains[train_number].add_carriages(PassengerCarriage.new)
+      when 2
+      @trains[train_number].add_carriages(CargoCarriage.new)
+    end
+    puts @trains[train_number].carriages
+  end
+
+  def del_carriage
+    puts "Delete Carriage from Train"
+    list_trains
+    puts "Please choice a Train"
+    train_number = gets.chomp.to_i
+    puts "Please choice number of Carriage, what we want delete"
+    @trains[train_number].carriages.each_with_index{|carriage, index| puts "#{index} - #{carriage}"}
+    i = gets.chomp.to_i
+    @trains[train_number].carriages.delete_at(i)
+  end
+
+  def transfer_train
+    puts "Transfer a Train"
+    list_trains
+    puts "Please choice a Train"
+    train_number = gets.chomp.to_i
+    puts "Back or Forward Transfer?\n 1 - Forward Transfer\n 2 - Back Transfer"
+    number = gets.chomp.to_i
+    case number
+      when 1
+      @trains[train_number].transfer
+      when 2
+      @trains[train_number].back_transfer
+    end
+  end
+
+  def list_trains_on_station
+    puts "Select a Station"
+    list_stations
+    station_number = gets.chomp.to_i
+    @stations[station_number].list
+  end
 
   def list_stations
     @stations.each_with_index{|station, index| puts "#{index} - #{station}"}
@@ -63,6 +111,7 @@ class Application
   end
 
   def list_trains
+    puts "List of Trains"
     @trains.each_with_index{|train, index| puts "#{index} - #{train}"}
   end
 

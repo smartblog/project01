@@ -28,16 +28,14 @@ loop do
   when 4
     menu.attach_route
   when 5
-
+    menu.add_carriage
   when 6
-
+    menu.del_carriage
   when 7
-
+    menu.transfer_train
   when 8
     menu.list_stations
   when 9
-
-  when 10
-
+    menu.list_trains_on_station
   end
 end

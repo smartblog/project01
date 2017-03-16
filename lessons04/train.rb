@@ -43,7 +43,7 @@ class Train
     end
   end
 
-  def reverse_transfer
+  def back_transfer
     if @index > 0
       self.current_station.departure(self)
       self.previos_station.arrive(self)
