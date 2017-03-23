@@ -11,17 +11,14 @@ class Application
   end
 
   def create_station
-    begin
     puts "Please enter the name of New Station"
     station_name = gets.chomp
     Station.new(station_name)
-    rescue RuntimeError => e
-      puts e.inspect
-    end
+    rescue => e
+      puts e.message
   end
 
   def create_train
-    begin
     puts "Please enter the number of New Train"
     train_number = gets.chomp
     puts "Please enter type of Train: passenger or cargo"
@@ -29,13 +26,11 @@ class Application
     raise "Type of Train is not valid" if type !~ TYPE_FORMAT
     PassengerTrain.new(train_number) if type == "passenger"
     CargoTrain.new(train_number) if type == "cargo"
-    rescue RuntimeError => e
-      puts e.inspect
-    end
+    rescue => e
+      puts e.message
   end
 
   def create_route
-    begin
     puts "List of Stations"
     list_stations
     puts "Choice Index of Begin Station in Route"
@@ -45,13 +40,11 @@ class Application
     to_index = gets.chomp.to_i
     raise "Error: End Station in route is nil" if Station.all[to_index].nil?
     @routes << Route.new(Station.all[from_index], Station.all[to_index])
-    rescue RuntimeError => e
-      puts e.inspect
-    end
+    rescue => e
+      puts e.message
   end
 
   def attach_route
-    begin
     puts "Attach Route to Train"
     puts "Choice a Route"
     list_routes
@@ -60,13 +53,11 @@ class Application
     list_trains
     train_number = gets.chomp
     Train.all[train_number].addroute(@routes[route_index])
-    rescue StandardError => e
-      puts e.inspect
-    end
+    rescue => e
+      puts e.message
   end
 
   def add_carriage
-    begin
     puts "Add Carriage to Train"
     list_trains
     puts "Please enter a Train Number"
@@ -76,13 +67,11 @@ class Application
     raise "Type of Train is not valid" if type !~ TYPE_FORMAT
     Train.all[train_number].add_carriages(PassengerCarriage.new) if type == "passenger"
     Train.all[train_number].add_carriages(CargoCarriage.new) if type == "cargo"
-    rescue RuntimeError => e
-      puts e.inspect
-    end
+    rescue => e
+      puts e.message
   end
 
   def del_carriage
-    begin
     puts "Delete Carriage from Train"
     list_trains
     puts "Please enter a Train Number"
@@ -91,39 +80,36 @@ class Application
     Train.all[train_number].carriages.each_with_index{|carriage, index| puts "#{index} - #{carriage}"}
     i = gets.chomp.to_i
     Train.all[train_number].carriages.delete_at(i)
-    rescue StandardError => e
-      puts e.inspect
-    end
+    rescue => e
+      puts e.message
   end
 
   def transfer_train
-    begin
     puts "Transfer a Train"
     list_trains
     puts "Please enter Train Number"
     train_number = gets.chomp
     puts "Back or Forward Transfer?\n 1 - Forward Transfer\n 2 - Back Transfer"
     number = gets.chomp.to_i
-      case number
-        when 1
-        Train.all[train_number].transfer
-        when 2
-        Train.all[train_number].back_transfer
-      end
-    rescue StandardError => e
-      puts e.inspect
+    case number
+      when 1
+      raise "Transfer impossible bacause current station is end of route" if Train.all[train_number].transfer == false
+      Train.all[train_number].transfer
+      when 2
+      raise "Transfer impossible bacause current station is begin of route" if Train.all[train_number].back_transfer == false
+      Train.all[train_number].back_transfer
     end
+    rescue => e
+      puts e.message
   end
 
   def list_trains_on_station
-    begin
-    puts "Select a Station"
     list_stations
+    puts "Select a Station"
     station_number = gets.chomp.to_i
-    Station.all[station_number].list
-    rescue StandardError => e
-      puts e.inspect
-    end
+    puts Station.all[station_number].trains
+    rescue => e
+      puts e.message
   end
 
   def list_stations

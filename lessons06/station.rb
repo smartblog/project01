@@ -2,6 +2,7 @@ require_relative 'instancecounter'
 
 class Station
   attr_accessor :name
+  attr_reader :trains
 
   @@all_stations = []
   NAME_FORMAT = /[a-z]{2,}-*[a-z]{2,}*\d{2}/i
@@ -18,21 +19,21 @@ class Station
   end
 
   def departure(train)
-    puts "Departure train #{train.number} from Station: #{@name}" if @trains.delete(train)
-  end
-
-  def list
-    puts "All trains on station: #{@name}"
-    @trains.each {|object| puts "Train: #{object.number}"}
+    @trains.delete(train)
   end
 
   def filter(traintype)
-    puts "All #{traintype} trains on station: #{@name}"
-    @filter_trains = @trains.select {|object| object.type == traintype}
+    @trains.select {|object| object.type == traintype}
   end
 
   def self.all
     @@all_stations
+  end
+
+  def valid?
+    validate!
+  rescue
+    false
   end
 
   protected

@@ -8,7 +8,7 @@ class Train
 
   attr_reader :number, :type, :carriages
 
-  NUMBER_FORMAT = /^[0-9a-z]{3}-*[0-9a-z]{2}/i
+  NUMBER_FORMAT = /^[0-9a-z]{3}-?[0-9a-z]{2}/i
   @@all_trains = {}
 
   def initialize(number)
@@ -53,7 +53,7 @@ class Train
       self.previos_station.departure(self)
       self.current_station.arrive(self)
     else
-      puts "Transfer impossible bacause current station is end of route"
+      false
     end
   end
 
@@ -63,7 +63,7 @@ class Train
       self.previos_station.arrive(self)
       @index -= 1
     else
-      puts "Transfer impossible bacause current station is end of reverse transfer"
+      false
     end
   end
 
@@ -90,7 +90,7 @@ class Train
   def valid?
     validate!
   rescue
-    true
+    false
   end
 
   protected
