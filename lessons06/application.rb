@@ -7,13 +7,15 @@ class Application
   TYPE_FORMAT = /(cargo|passenger)/i
 
   def initialize
+    @stations = []
+    @trains = []
     @routes = []
   end
 
   def create_station
     puts "Please enter the name of New Station"
     station_name = gets.chomp
-    Station.new(station_name)
+    @stations << Station.new(station_name)
     rescue => e
       puts e.message
   end
@@ -24,8 +26,8 @@ class Application
     puts "Please enter type of Train: passenger or cargo"
     type = gets.chomp
     raise "Type of Train is not valid" if type !~ TYPE_FORMAT
-    PassengerTrain.new(train_number) if type == "passenger"
-    CargoTrain.new(train_number) if type == "cargo"
+    @trains << PassengerTrain.new(train_number) if type == "passenger"
+    @trains << CargoTrain.new(train_number) if type == "cargo"
     rescue => e
       puts e.message
   end
@@ -89,15 +91,18 @@ class Application
     list_trains
     puts "Please enter Train Number"
     train_number = gets.chomp
+    raise "Train with number #{train_number} is not created" if Train.all[train_number].nil?
     puts "Back or Forward Transfer?\n 1 - Forward Transfer\n 2 - Back Transfer"
     number = gets.chomp.to_i
     case number
       when 1
-      raise "Transfer impossible bacause current station is end of route" if Train.all[train_number].transfer == false
-      Train.all[train_number].transfer
+        unless Train.all[train_number].transfer
+          puts "Transfer impossible bacause current station is end of route"
+        end
       when 2
-      raise "Transfer impossible bacause current station is begin of route" if Train.all[train_number].back_transfer == false
-      Train.all[train_number].back_transfer
+        unless Train.all[train_number].back_transfer
+          puts "Transfer impossible bacause current station is begin of route"
+        end
     end
     rescue => e
       puts e.message
