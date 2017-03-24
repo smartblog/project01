@@ -48,7 +48,7 @@ class Train
   end
 
   def transfer
-    if @index < @current_route.route.count - 1
+    if @index < @current_route.stations.count - 1
       @index += 1
       self.previos_station.departure(self)
       self.current_station.arrive(self)
@@ -68,15 +68,15 @@ class Train
   end
 
   def current_station
-    @current_route.route[@index]
+    @current_route.stations[@index]
   end
 
   def next_station
-    @current_route.route[@index + 1]
+    @current_route.stations[@index + 1]
   end
 
   def previos_station
-    @current_route.route[@index - 1]
+    @current_route.stations[@index - 1]
   end
 
   def self.find(number)
