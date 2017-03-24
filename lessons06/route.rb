@@ -1,10 +1,8 @@
 class Route
   attr_accessor :route
   def initialize(from, to)
-    @from = from
-    @to = to
+    @route = [from, to]
     validate!
-    @route = [@from, @to]
   end
 
   def add_station(station)
@@ -16,8 +14,7 @@ class Route
   end
 
   def validate!
-    raise "From is not Station" if @from.class != Station
-    raise "To is not Station" if @to.class != Station
+    raise "Object in route is not Station" unless @route.all?{|object| object.is_a?(Station)}
     true
   end
 end
