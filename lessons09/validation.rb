@@ -12,23 +12,20 @@ module Validation
 
     def validate!
       self.class.instance_variable_get(:@validation).each do |value|
-        self.send "#{value[1]}", value[0], value[2]
+        send "#{value[1]}", value[0], value[2]
       end
     end
 
     def valid?
-      begin
-        validate!
-        true
-      rescue
-        false
-      end
+      validate!
+    rescue
+      false
     end
 
     private
 
     def var_value(attr)
-      self.instance_variable_get("@#{attr}")
+      instance_variable_get("@#{attr}")
     end
 
     def presence(attr, *arg)
@@ -36,9 +33,7 @@ module Validation
     end
 
     def format(attr, arg)
-      unless var_value(attr) =~ arg
-        raise "Format of '#{attr}' is wrong"
-      end
+      raise "Format of '#{attr}' is wrong" unless var_value(attr) =~ arg
     end
 
     def type(attr, arg)

@@ -85,24 +85,9 @@ class Train
     @@all_trains
   end
 
-  # def valid?
-  #   validate!
-  # rescue
-  #   false
-  # end
-
   def all_carriages
     @carriages.each_with_index { |carriage, index| yield(carriage, index) }
   end
-
-  # protected
-  #
-  # attr_writer :number, :type, :carriages
-  #
-  # def validate!
-  #   raise 'Number of Train is not valid' if number !~ NUMBER_FORMAT
-  #   true
-  # end
 end
 
 class PassengerTrain < Train

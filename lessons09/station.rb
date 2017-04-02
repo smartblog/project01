@@ -37,20 +37,7 @@ class Station
     @@all_stations
   end
 
-  # def valid?
-  #   validate!
-  # rescue
-  #   false
-  # end
-
   def all_trains
     @trains.each { |train| yield(train) }
   end
-
-  # protected
-
-  # def validate!
-  #   raise "Name of Station is't valid" if name !~ NAME_FORMAT
-  #   true
-  # end
 end
