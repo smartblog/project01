@@ -1,11 +1,18 @@
 require_relative 'instancecounter'
+require_relative 'validation'
 
 class Station
   attr_accessor :name
   attr_reader :trains
 
+  include Validation::InstanceMethods
+  extend Validation::ClassMethods
+
   @@all_stations = []
   NAME_FORMAT = /[a-z]{2,}-*[a-z]{2,}*\d{2}/i
+
+  validate :name, :presence
+  validate :name, :format, NAME_FORMAT
 
   def initialize(name)
     @name = name
@@ -30,20 +37,20 @@ class Station
     @@all_stations
   end
 
-  def valid?
-    validate!
-  rescue
-    false
-  end
+  # def valid?
+  #   validate!
+  # rescue
+  #   false
+  # end
 
   def all_trains
     @trains.each { |train| yield(train) }
   end
 
-  protected
+  # protected
 
-  def validate!
-    raise "Name of Station is't valid" if name !~ NAME_FORMAT
-    true
-  end
+  # def validate!
+  #   raise "Name of Station is't valid" if name !~ NAME_FORMAT
+  #   true
+  # end
 end

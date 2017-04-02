@@ -1,15 +1,21 @@
 require_relative 'manufacturer'
 require_relative 'instancecounter'
+require_relative 'validation'
 
 class Train
+  attr_reader :number, :type, :carriages, :speed
+
   include Manufacturer
   include InstanceCounter::InstanceMethods
   extend InstanceCounter::ClassMethods
-
-  attr_reader :number, :type, :carriages
+  include Validation::InstanceMethods
+  extend Validation::ClassMethods
 
   NUMBER_FORMAT = /^[0-9a-z]{3}-?[0-9a-z]{2}/i
   @@all_trains = {}
+
+  validate :number, :presence
+  validate :number, :format, NUMBER_FORMAT
 
   def initialize(number)
     @speed = 0
@@ -19,10 +25,6 @@ class Train
     @@all_trains[number] = self
     register_instance
   end
-
-  attr_reader :speed
-
-  attr_reader :carriages
 
   def go
     @speed = 50
@@ -83,33 +85,39 @@ class Train
     @@all_trains
   end
 
-  def valid?
-    validate!
-  rescue
-    false
-  end
+  # def valid?
+  #   validate!
+  # rescue
+  #   false
+  # end
 
   def all_carriages
     @carriages.each_with_index { |carriage, index| yield(carriage, index) }
   end
 
-  protected
-
-  attr_writer :number, :type, :carriages
-
-  def validate!
-    raise 'Number of Train is not valid' if number !~ NUMBER_FORMAT
-    true
-  end
+  # protected
+  #
+  # attr_writer :number, :type, :carriages
+  #
+  # def validate!
+  #   raise 'Number of Train is not valid' if number !~ NUMBER_FORMAT
+  #   true
+  # end
 end
 
 class PassengerTrain < Train
+  validate :number, :presence
+  validate :number, :format, NUMBER_FORMAT
+
   def train_type
     'passenger'
   end
 end
 
 class CargoTrain < Train
+  validate :number, :presence
+  validate :number, :format, NUMBER_FORMAT
+
   def train_type
     'cargo'
   end
